@@ -1,0 +1,37 @@
+using System;
+using System.Linq; // Necesario para .Reverse() y .ToArray()
+
+public class PalindromoChecker
+{
+    public static bool EsPalindromo(string palabra)
+    {
+        // Convertir a minúsculas y eliminar espacios para una verificación más robusta
+        string palabraLimpia = new string(palabra.Where(char.IsLetterOrDigit).ToArray()).ToLower();
+        string palabraInvertida = new string(palabraLimpia.Reverse().ToArray());
+        return palabraLimpia.Equals(palabraInvertida);
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Console.Write("Introduce una palabra para verificar si es un palíndromo: ");
+        string? inputPalabra = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(inputPalabra))
+        {
+            Console.WriteLine("No se ha introducido ninguna palabra.");
+            return;
+        }
+
+        if (PalindromoChecker.EsPalindromo(inputPalabra))
+        {
+            Console.WriteLine($"'{inputPalabra}' es un palíndromo.");
+        }
+        else
+        {
+            Console.WriteLine($"'{inputPalabra}' no es un palíndromo.");
+        }
+    }
+}
