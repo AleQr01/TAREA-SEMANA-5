@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class Vector
+{
+    public List<int> Componentes { get; private set; }
+
+    public Vector(params int[] componentes)
+    {
+        Componentes = new List<int>(componentes);
+    }
+
+    public int CalcularProductoEscalar(Vector otroVector)
+    {
+        if (Componentes.Count != otroVector.Componentes.Count)
+        {
+            throw new ArgumentException("Los vectores deben tener la misma dimensión para calcular el producto escalar.");
+        }
+
+        int productoEscalar = 0;
+        for (int i = 0; i < Componentes.Count; i++)
+        {
+            productoEscalar += Componentes[i] * otroVector.Componentes[i];
+        }
+        return productoEscalar;
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Vector vector1 = new Vector(1, 2, 3);
+        Vector vector2 = new Vector(-1, 0, 2);
+
+        try
+        {
+            int resultadoProductoEscalar = vector1.CalcularProductoEscalar(vector2);
+            Console.WriteLine($"El producto escalar de {string.Join(", ", vector1.Componentes)} y {string.Join(", ", vector2.Componentes)} es: {resultadoProductoEscalar}");
+        }
+        catch (ArgumentException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
+        // Ejemplo con vectores de diferente dimensión para probar la excepción
+        // Vector vector3 = new Vector(1, 2);
+        // try
+        // {
+        //     int resultadoInvalido = vector1.CalcularProductoEscalar(vector3);
+        // }
+        // catch (ArgumentException ex)
+        // {
+        //     Console.WriteLine($"Error al intentar calcular con vectores de diferente dimensión: {ex.Message}");
+        // }
+    }
+}
