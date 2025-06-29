@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+
+public class Asignatura
+{
+    public string Nombre { get; set; }
+    public double Nota { get; set; }
+
+    public Asignatura(string nombre)
+    {
+        Nombre = nombre;
+    }
+
+    public void MostrarInformacion()
+    {
+        Console.WriteLine($"En {Nombre} has sacado {Nota}");
+    }
+}
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        List<Asignatura> asignaturas = new List<Asignatura>
+        {
+            new Asignatura("Matemáticas"),
+            new Asignatura("Física"),
+            new Asignatura("Química"),
+            new Asignatura("Historia"),
+            new Asignatura("Lengua")
+        };
+
+        foreach (var asignatura in asignaturas)
+        {
+            Console.Write($"¿Qué nota has sacado en {asignatura.Nombre}? ");
+            string? inputNota = Console.ReadLine();
+            if (double.TryParse(inputNota, out double nota))
+            {
+                asignatura.Nota = nota;
+            }
+            else
+            {
+                Console.WriteLine("Nota inválida. Se asignará 0.");
+                asignatura.Nota = 0;
+            }
+        }
+
+        Console.WriteLine("\n--- Resumen de Notas ---");
+        foreach (var asignatura in asignaturas)
+        {
+            asignatura.MostrarInformacion();
+        }
+    }
+}
