@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq; // Necesario para .OrderBy()
+
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        List<int> numerosGanadores = new List<int>();
+        Console.WriteLine("Introduce los números ganadores de la lotería primitiva (uno por uno). Escribe 'fin' para terminar:");
+
+        while (true)
+        {
+            Console.Write("Número: ");
+            string? input = Console.ReadLine();
+
+            if (input?.ToLower() == "fin")
+            {
+                break;
+            }
+
+            if (int.TryParse(input, out int numero))
+            {
+                numerosGanadores.Add(numero);
+            }
+            else
+            {
+                Console.WriteLine("Entrada inválida. Por favor, introduce un número o 'fin'.");
+            }
+        }
+
+        // Ordenar la lista
+        numerosGanadores = numerosGanadores.OrderBy(n => n).ToList();
+
+        Console.WriteLine("\n--- Números Ganadores Ordenados ---");
+        foreach (var numero in numerosGanadores)
+        {
+            Console.Write(numero + " ");
+        }
+        Console.WriteLine();
+    }
+}
